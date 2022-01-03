@@ -3,13 +3,14 @@ import mediapipe as mp
 import time
 
 
-class hand_detector():
+class HandDetector:
     def __init__(self, mode=False, maxHands=2, modelComplexity=1, detectionConfidence=0.5, trackConfidence=0.5):
         self.mode = mode
         self.maxHands = maxHands
         self.modelComplexity = modelComplexity
         self.detectionConfidence = detectionConfidence
         self.trackConfidence = trackConfidence
+
         self.mpHands = mp.solutions.hands
         self.hands = self.mpHands.Hands(self.mode, self.maxHands, self.modelComplexity, self.detectionConfidence, self.trackConfidence)
         self.mpDraw = mp.solutions.drawing_utils
@@ -43,7 +44,7 @@ class hand_detector():
 def main():
     previous_time = 0
     cap = cv2.VideoCapture(0)
-    detector = hand_detector()
+    detector = HandDetector()
     while True:
         success, img = cap.read()
         img = detector.findHands(img)
